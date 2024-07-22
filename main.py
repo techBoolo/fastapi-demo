@@ -1,6 +1,11 @@
 from fastapi import FastAPI
+from enum import Enum
 
 app = FastAPI()
+
+class Gender(str, Enum):
+    maler = "Male",
+    female = "Female"
 
 
 @app.on_event(event_type="startup")
@@ -21,6 +26,10 @@ async def root():
 @app.get("/users")
 async def index_users():
     return {"message": "list of users"}
+
+@app.get("/users/gender/{gender}")
+async def index_users_gender(gender: Gender):
+    return {"message": "list of users", "gender": gender }
 
 
 @app.get("/users/{user_id}")
