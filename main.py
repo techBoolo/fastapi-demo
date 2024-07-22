@@ -16,3 +16,15 @@ async def shutdown_event():
 @app.get("/")
 async def root():
     return {"message": "root route"}
+
+
+@app.get("/users")
+async def index_users():
+    return {"message": "list of users"}
+
+
+@app.get("/users/{user_id}")
+async def show_user(user_id):
+    return {"message": "list of users", "id": user_id }
+
+
