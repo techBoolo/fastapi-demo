@@ -25,6 +25,10 @@ async def index_users():
 
 @app.get("/users/{user_id}")
 async def show_user(user_id):
-    return {"message": "list of users", "id": user_id }
+    return {"message": "user detail", "id": user_id }
 
+
+@app.get("/posts/{post_id}")
+async def show_post(post_id: int):
+    return {"message": "post detail", "id": post_id }
 
