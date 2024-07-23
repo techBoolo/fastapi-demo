@@ -3,6 +3,7 @@ from enum import Enum
 
 app = FastAPI()
 
+
 class Gender(str, Enum):
     maler = "Male",
     female = "Female"
@@ -24,28 +25,33 @@ async def root():
 
 
 @app.get("/users")
-async def index_users(page: int = 1, size: int = 10):
+async def index_users(page: int = 1, size: int = 10, q: str | None = None):
     response = {"message": "list of users"}
     response.update({"page": page})
     response.update({"size": size})
+    if q:
+        response.update({"q": q})
     return response
+
 
 @app.get("/users/gender/{gender}")
 async def index_users_gender(gender: Gender):
-    return {"message": "list of users", "gender": gender }
+    return {"message": "list of users", "gender": gender}
 
 
 @app.get("/users/{user_id}")
-async def show_user(user_id):
-    return {"message": "user detail", "id": user_id }
+async def show_user(user_id, q: str | None = None):
+    response = {"message": "user detail", "id": user_id}
+    if q:
+        response.update({"q": q})
+    return  response
 
 
 @app.get("/posts/latest")
 async def get_latest():
-    return { "message": "latest posts" }
+    return {"message": "latest posts"}
 
 
 @app.get("/posts/{post_id}")
 async def show_post(post_id: int):
-    return {"message": "post detail", "id": post_id }
-
+    return {"message": "post detail", "id": post_id}
