@@ -24,8 +24,11 @@ async def root():
 
 
 @app.get("/users")
-async def index_users():
-    return {"message": "list of users"}
+async def index_users(page: int = 1, size: int = 10):
+    response = {"message": "list of users"}
+    response.update({"page": page})
+    response.update({"size": size})
+    return response
 
 @app.get("/users/gender/{gender}")
 async def index_users_gender(gender: Gender):
