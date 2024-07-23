@@ -44,7 +44,18 @@ async def show_user(user_id, q: str | None = None):
     response = {"message": "user detail", "id": user_id}
     if q:
         response.update({"q": q})
-    return  response
+    return response
+
+
+@app.get("/posts")
+async def get_posts(q: str | None = None, short: bool = False):
+    response = {"message": "list of posts"}
+    if q:
+        response.update({"q": q})
+    if not short:
+        response.update({"description": "this post is long and requires some "
+                                        "time to read"})
+    return response
 
 
 @app.get("/posts/latest")
