@@ -59,7 +59,7 @@ async def get_posts(q: str | None = None, short: bool = False):
 
 
 @app.get("/posts/latest")
-async def get_latest():
+async def get_latest(sort: str):
     return {"message": "latest posts"}
 
 
